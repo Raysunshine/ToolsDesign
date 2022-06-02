@@ -32,6 +32,13 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Model.getInstance().getUserDao().getUserInformationByUserName("123");
+                    }
+                });
+                //TODO 判断当前账号是否已经登录，若未登录，跳转到MainActivity界面，若登录，跳转到ContainerActivity
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 runOnUiThread(new Runnable() {

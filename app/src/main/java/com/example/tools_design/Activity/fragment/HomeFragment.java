@@ -13,9 +13,13 @@ import com.example.tools_design.R;
 
 public class HomeFragment extends Fragment {
 
+    private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        return view;
     }
 }

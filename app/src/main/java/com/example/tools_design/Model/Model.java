@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.transition.Visibility;
 
+import com.example.tools_design.Model.dao.UserDao;
+import com.example.tools_design.Model.dao.UserTable;
 import com.example.tools_design.Utils.Constant;
 
 import java.util.concurrent.ExecutorService;
@@ -18,6 +20,7 @@ public class Model {
     private Context mContext;
     private static Model model = new Model();
     private ExecutorService executorService = Executors.newCachedThreadPool();
+    private UserDao userDao;
 
     /**
      * 在Application中初始化
@@ -25,6 +28,9 @@ public class Model {
      */
     public void init(Context mContext){
         this.mContext = mContext;
+
+        //创建用户账号数据库的操作类对象
+        userDao = new UserDao(mContext,UserTable.DB_NAME,null,1);
     }
 
     /**
@@ -48,6 +54,19 @@ public class Model {
     //获取全局线程池
     public ExecutorService getGlobalThreadPool(){
         return executorService;
+    }
+
+    //用户信息操作类
+    public UserDao getUserDao(){
+        if(userDao == null){
+            userDao = new UserDao(mContext,UserTable.DB_NAME,null,1);
+        }
+        return userDao;
+    }
+
+    //用户登录成功后的方法
+    public void loginSuccess(){
+
     }
 
 

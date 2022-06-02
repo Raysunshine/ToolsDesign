@@ -8,15 +8,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.tools_design.Activity.activity.ContainerActivity;
+import com.example.tools_design.Model.Model;
 import com.example.tools_design.R;
+import com.example.tools_design.Utils.Constant;
 
 public class LoginFragment extends Fragment implements View.OnClickListener{
 
@@ -24,11 +29,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     private EditText fragment_login_password;
     private TextView fragment_login_register;
     private Button fragment_login_login;
+    private ImageView fragment_login_icon;
     private View view;
+    private Bundle bundle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -50,9 +58,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         fragment_login_password = view.findViewById(R.id.fragment_login_password);
         fragment_login_register = view.findViewById(R.id.fragment_login_register);
         fragment_login_login = view.findViewById(R.id.fragment_login_login);
+        fragment_login_icon = view.findViewById(R.id.fragment_login_icon);
     }
 
     private void initData() {
+        try{
+            bundle = getArguments();
+            fragment_login_userName.setText(bundle.getString("userName"));
+            fragment_login_password.setText(bundle.getString("userPassword"));
+        }catch (Exception e){
+            Log.w(Constant.TAG, "onCreate: bundle未找到");
+        }
+
+        Glide.with(LoginFragment.this).load(R.drawable.login_icon).into(fragment_login_icon);
     }
 
     private void initListener() {
@@ -67,8 +85,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                 replaceFragment(new RegisterFragment());
                 break;
             case R.id.fragment_login_login:
-                startToContainerActivity();
+//                startToContainerActivity();
+                Model.getInstance().getUserDao().loginIn("123");
                 break;
+
         }
     }
 
