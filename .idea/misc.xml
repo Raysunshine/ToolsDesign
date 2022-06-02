@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Raysun/AndroidProject/ToolsDesign/app/src/main/res/layout/activity_container.xml" value="0.1" />
+        <entry key="..\:/Raysun/AndroidProject/ToolsDesign/app/src/main/res/layout/activity_main.xml" value="0.34375" />
+        <entry key="..\:/Raysun/AndroidProject/ToolsDesign/app/src/main/res/layout/activity_splash.xml" value="0.3619791666666667" />
+        <entry key="..\:/Raysun/AndroidProject/ToolsDesign/app/src/main/res/layout/fragment_home.xml" value="0.32916666666666666" />
+        <entry key="..\:/Raysun/AndroidProject/ToolsDesign/app/src/main/res/layout/fragment_login.xml" value="0.3619791666666667" />
+        <entry key="..\:/Raysun/AndroidProject/ToolsDesign/app/src/main/res/layout/fragment_mine.xml" value="0.30434782608695654" />
+        <entry key="..\:/Raysun/AndroidProject/ToolsDesign/app/src/main/res/layout/fragment_register.xml" value="0.32447916666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.21041666666666667" />
+      </ProjectState>
+    </option>
+  </component>
+</project>
