@@ -44,4 +44,6 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'androidx.fragment:fragment:1.0.0'
+    //Notification
+    implementation 'androidx.core:core:1.0.0'
 }

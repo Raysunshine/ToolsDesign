@@ -10,7 +10,6 @@ import com.example.tools_design.Model.Model;
  * 添加android:name属性来指定程序的入口
  */
 public class ToolsDesignApplication extends Application {
-    //TODO 学习SQLite
 
     @Override
     public void onCreate() {

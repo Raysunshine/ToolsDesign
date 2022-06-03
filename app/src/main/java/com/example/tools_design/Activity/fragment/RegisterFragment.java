@@ -1,11 +1,15 @@
 package com.example.tools_design.Activity.fragment;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,6 +41,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private EditText fragment_register_confirmPassword;
     private Button fragment_register_register;
     private ImageView fragment_register_icon;
+    private final String CHANNEL_ID = "Register_channel_id";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        createNotificationChannel();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,9 +137,31 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void sendRegisterSuccessNotification() {
-        //TODO 自动发送一个通知,Title:注册成功，Container:账号,密码，图标:app_icon
+        //TODO 修改通知样式
         NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder notificationBuild = new NotificationCompat.Builder(getActivity(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.login_icon)
+                .setContentTitle("注册成功")
+                .setContentText("账号:"+fragment_register_userName.getText().toString()
+                        +"\n\n密码:"+fragment_register_password.getText().toString())
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("更多..."));
+        notificationManager.notify(1,notificationBuild.build());
     }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 
     private void replaceFragment(Fragment fragment, boolean isSetArguments) {
         if (isSetArguments) {

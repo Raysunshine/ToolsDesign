@@ -39,6 +39,14 @@ public class ContainerAdapter extends FragmentStateAdapter {
     }
 
     /**
+     * 删除某个fragment
+     * @param fragment
+     */
+    public void deleteFragment(Fragment fragment){
+        fragmentList.remove(fragment);
+    }
+
+    /**
      * 返回位置
      * @param position
      * @return

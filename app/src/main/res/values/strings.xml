@@ -8,4 +8,6 @@
     <string name="register_password">请输入密码</string>
     <string name="password">密码</string>
     <string name="register_button">注册</string>
+    <string name="channel_name">注册渠道名字</string>
+    <string name="channel_description">注册通知渠道描述</string>
 </resources>
