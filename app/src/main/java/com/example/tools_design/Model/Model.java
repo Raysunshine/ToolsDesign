@@ -1,15 +1,9 @@
 package com.example.tools_design.Model;
 
 import android.content.Context;
-import android.util.Log;
 
-import androidx.transition.Visibility;
-
-import com.example.tools_design.Model.dao.CurrentUserDao;
-import com.example.tools_design.Model.dao.CurrentUserTable;
 import com.example.tools_design.Model.dao.UserDao;
 import com.example.tools_design.Model.dao.UserTable;
-import com.example.tools_design.Utils.Constant;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,7 +17,6 @@ public class Model {
     private static Model model = new Model();
     private ExecutorService executorService = Executors.newCachedThreadPool();
     private UserDao userDao;
-    private CurrentUserDao currentUserDao;
 
     /**
      * 在Application中初始化
@@ -35,7 +28,6 @@ public class Model {
         //创建用户账号数据库的操作类对象
         userDao = new UserDao(mContext,UserTable.DB_NAME,null,1);
 
-        currentUserDao = new CurrentUserDao(mContext,CurrentUserTable.DB_NAME,null,1);
     }
 
     /**
@@ -67,13 +59,6 @@ public class Model {
             userDao = new UserDao(mContext,UserTable.DB_NAME,null,1);
         }
         return userDao;
-    }
-
-    public CurrentUserDao getCurrentUser(){
-        if(currentUserDao == null){
-            currentUserDao = new CurrentUserDao(mContext, CurrentUserTable.DB_NAME,null,1);
-        }
-        return currentUserDao;
     }
 
     //用户登录成功后的方法

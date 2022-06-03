@@ -16,10 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tools_design.Activity.activity.ContainerActivity;
 import com.example.tools_design.Model.Model;
+import com.example.tools_design.Model.bean.UserInfo;
 import com.example.tools_design.R;
 import com.example.tools_design.Utils.Constant;
 
@@ -32,12 +34,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     private ImageView fragment_login_icon;
     private View view;
     private Bundle bundle;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +72,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     private void initListener() {
         fragment_login_register.setOnClickListener(this);
         fragment_login_login.setOnClickListener(this);
+
+        //TODO 当用户名和密码都输入之后，再显示可点击按钮
     }
 
     @Override
@@ -85,7 +83,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                 replaceFragment(new RegisterFragment());
                 break;
             case R.id.fragment_login_login:
-                startToContainerActivity();
+                loginIn();
                 break;
 
         }
@@ -98,12 +96,42 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         fragmentTransaction.replace(R.id.activity_main_frameLayout,fragment).commit();
     }
 
-    private void startToContainerActivity() {
-        //TODO 判断数据库中的账号密码是否正确，正确后跳转并退出Activity，错误提示
-        //TODO 把当前用户设置为在线
-        Model.getInstance().getCurrentUser().addCurrentUser(fragment_login_userName.getText().toString());
-        Intent intent = new Intent(getActivity(), ContainerActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+    private void loginIn() {
+        String username = fragment_login_userName.getText().toString();
+        String password = fragment_login_password.getText().toString();
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                UserInfo userInfo = Model.getInstance().getUserDao().getUserInformationByUserName(username);
+                if (userInfo!=null){
+                    if (password.equals(userInfo.getPassword())){
+                        Model.getInstance().getUserDao().loginIn(username);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getActivity(), ContainerActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        });
+                    }else{
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(), "密码输入错误!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }else{
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(), "不存在该用户!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+
     }
 }

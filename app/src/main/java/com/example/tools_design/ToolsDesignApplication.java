@@ -11,7 +11,6 @@ import com.example.tools_design.Model.Model;
  */
 public class ToolsDesignApplication extends Application {
     //TODO 学习SQLite
-    //TODO 逻辑需要理清
 
     @Override
     public void onCreate() {
