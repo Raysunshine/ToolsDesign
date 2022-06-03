@@ -5,11 +5,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.example.tools_design.Model.bean.UserInfo;
 import com.example.tools_design.Model.db.UserDB;
+import com.example.tools_design.Utils.Constant;
 
 public class UserDao {
 
@@ -54,7 +56,7 @@ public class UserDao {
             userInfo.setUserName(cursor.getString(cursor.getColumnIndex(UserTable.COL_NAME)));
             userInfo.setNickName(cursor.getString(cursor.getColumnIndex(UserTable.COL_NICKNAME)));
             userInfo.setPassword(cursor.getString(cursor.getColumnIndex(UserTable.COL_PASSWORD)));
-            userInfo.setIsOnline(cursor.getColumnIndex(UserTable.COL_IS_ONLINE));
+            userInfo.setIsOnline(cursor.getInt(cursor.getColumnIndex(UserTable.COL_IS_ONLINE)));
         }
 
         cursor.close();

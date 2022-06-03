@@ -13,5 +13,5 @@ public class UserTable {
             + COL_NAME + " text primary key,"
             + COL_NICKNAME + " text,"
             + COL_PASSWORD + " text,"
-            + COL_IS_ONLINE +" int);";
+            + COL_IS_ONLINE +" integer);";
 }

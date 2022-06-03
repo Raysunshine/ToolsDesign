@@ -85,8 +85,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                 replaceFragment(new RegisterFragment());
                 break;
             case R.id.fragment_login_login:
-//                startToContainerActivity();
-                Model.getInstance().getUserDao().loginIn("123");
+                startToContainerActivity();
                 break;
 
         }
@@ -101,6 +100,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
     private void startToContainerActivity() {
         //TODO 判断数据库中的账号密码是否正确，正确后跳转并退出Activity，错误提示
+        //TODO 把当前用户设置为在线
+        Model.getInstance().getCurrentUser().addCurrentUser(fragment_login_userName.getText().toString());
         Intent intent = new Intent(getActivity(), ContainerActivity.class);
         startActivity(intent);
         getActivity().finish();

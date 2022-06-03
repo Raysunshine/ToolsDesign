@@ -6,7 +6,7 @@ public class UserInfo {
     private String userName = "";
     private String nickName = userName;
     private String password = "";
-    private int isOnline = 0;
+    private Integer isOnline = 0;
 
     public UserInfo() {
     }
@@ -57,11 +57,11 @@ public class UserInfo {
         this.password = password;
     }
 
-    public int getIsOnline() {
+    public Integer getIsOnline() {
         return isOnline;
     }
 
-    public void setIsOnline(int isOnline) {
+    public void setIsOnline(Integer isOnline) {
         this.isOnline = isOnline;
     }
 }
