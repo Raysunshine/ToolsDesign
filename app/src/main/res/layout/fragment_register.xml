@@ -15,7 +15,8 @@
         android:background="@color/transparent"
         android:src="@drawable/back_button_white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/register_backButton" />
 
     <ImageView
         android:id="@+id/fragment_register_icon"
@@ -24,7 +25,8 @@
         android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/register_icon" />
 
     <EditText
         android:id="@+id/fragment_register_userName"
@@ -37,7 +39,8 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_icon"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/fragment_register_password"
@@ -48,7 +51,8 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/fragment_register_userName"
         app:layout_constraintStart_toStartOf="@+id/fragment_register_userName"
-        app:layout_constraintTop_toBottomOf="@id/fragment_register_userName" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_register_userName"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/fragment_register_confirmPassword"
@@ -59,7 +63,8 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/fragment_register_password"
         app:layout_constraintStart_toStartOf="@+id/fragment_register_password"
-        app:layout_constraintTop_toBottomOf="@id/fragment_register_password" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_register_password"
+        tools:ignore="Autofill,TextFields" />
 
     <Button
         android:id="@+id/fragment_register_register"

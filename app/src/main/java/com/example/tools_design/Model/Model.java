@@ -1,5 +1,6 @@
 package com.example.tools_design.Model;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.example.tools_design.Model.dao.UserDao;
@@ -14,13 +15,13 @@ import java.util.concurrent.Executors;
 public class Model {
 
     private Context mContext;
+    @SuppressLint("StaticFieldLeak")
     private static Model model = new Model();
-    private ExecutorService executorService = Executors.newCachedThreadPool();
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
     private UserDao userDao;
 
     /**
      * 在Application中初始化
-     * @param mContext
      */
     public void init(Context mContext){
         this.mContext = mContext;
@@ -59,11 +60,6 @@ public class Model {
             userDao = new UserDao(mContext,UserTable.DB_NAME,null,1);
         }
         return userDao;
-    }
-
-    //用户登录成功后的方法
-    public void loginSuccess(){
-
     }
 
 

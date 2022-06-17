@@ -2,7 +2,7 @@ package com.example.tools_design.Utils;
 
 import android.util.Log;
 
-public class LogUtils {
+public class Logs {
 
     private static final String TAG = "Raysun";
     private static final int capacity = 91;

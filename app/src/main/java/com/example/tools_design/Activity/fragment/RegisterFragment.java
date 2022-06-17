@@ -1,20 +1,11 @@
 package com.example.tools_design.Activity.fragment;
 
-import android.app.Notification;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
-import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +13,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.tools_design.Model.Model;
 import com.example.tools_design.Model.bean.UserInfo;
 import com.example.tools_design.R;
-import com.example.tools_design.Utils.Constant;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
@@ -84,6 +79,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         //TODO 当用户名和密码都输入之后，再显示可点击按钮
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -100,37 +96,21 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         String userName = fragment_register_userName.getText().toString();
         String password = fragment_register_password.getText().toString();
         String confirmPassword = fragment_register_confirmPassword.getText().toString();
-        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
-            @Override
-            public void run() {
-                boolean isExisted = Model.getInstance().getUserDao().isUsernameExisted(userName);
-                if (isExisted) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(), "该用户已存在!", Toast.LENGTH_SHORT).show();
-                        }
+        Model.getInstance().getGlobalThreadPool().execute(() -> {
+            boolean isExisted = Model.getInstance().getUserDao().isUsernameExisted(userName);
+            if (isExisted) {
+                requireActivity().runOnUiThread(() -> Toast.makeText(getActivity(), "该用户已存在!", Toast.LENGTH_SHORT).show());
+            } else {
+                if (password.equals(confirmPassword)) {
+                    UserInfo userInfo = new UserInfo(userName, password, 0);
+                    Model.getInstance().getUserDao().addUser(userInfo);
+                    sendRegisterSuccessNotification();
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
+                        replaceFragment(new LoginFragment(), true);
                     });
                 } else {
-                    if (password.equals(confirmPassword)) {
-                        UserInfo userInfo = new UserInfo(userName, password, 0);
-                        Model.getInstance().getUserDao().addUser(userInfo);
-                        sendRegisterSuccessNotification();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
-                                replaceFragment(new LoginFragment(), true);
-                            }
-                        });
-                    }else{
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getActivity(), "两次密码输入不一致", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
+                    requireActivity().runOnUiThread(() -> Toast.makeText(getActivity(), "两次密码输入不一致", Toast.LENGTH_SHORT).show());
                 }
             }
         });
@@ -138,16 +118,16 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private void sendRegisterSuccessNotification() {
         //TODO 修改通知样式
-        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder notificationBuild = new NotificationCompat.Builder(getActivity(), CHANNEL_ID)
+        NotificationManager notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder notificationBuild = new NotificationCompat.Builder(requireActivity(), CHANNEL_ID)
                 .setSmallIcon(R.drawable.login_icon)
                 .setContentTitle("注册成功")
-                .setContentText("账号:"+fragment_register_userName.getText().toString()
-                        +"\n\n密码:"+fragment_register_password.getText().toString())
+                .setContentText("账号:" + fragment_register_userName.getText().toString()
+                        + "\n\n密码:" + fragment_register_password.getText().toString())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("更多..."));
-        notificationManager.notify(1,notificationBuild.build());
+        notificationManager.notify(1, notificationBuild.build());
     }
 
     private void createNotificationChannel() {
@@ -157,7 +137,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            NotificationManager notificationManager = requireActivity().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
@@ -170,7 +150,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             bundle.putString("userPassword", fragment_register_password.getText().toString());
             fragment.setArguments(bundle);
         }
-        FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager supportFragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         fragmentTransaction.replace(R.id.activity_main_frameLayout, fragment).commit();

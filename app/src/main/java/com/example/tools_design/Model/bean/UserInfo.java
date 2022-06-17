@@ -1,5 +1,7 @@
 package com.example.tools_design.Model.bean;
 
+import androidx.annotation.NonNull;
+
 //用户信息的bean类
 public class UserInfo {
 
@@ -11,11 +13,6 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
-
     public UserInfo(String userName, String password, int isOnline) {
         this.userName = userName;
         this.nickName = userName;
@@ -23,6 +20,7 @@ public class UserInfo {
         this.isOnline = isOnline;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "UserInfo{" +
