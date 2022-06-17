@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.example.tools_design.Model.bean.UserInfo;
 import com.example.tools_design.Model.db.UserDB;
-import com.example.tools_design.Utils.Logs;
+import com.raysun.utils.LogUtils.Logs;
 
 public class UserDao {
 

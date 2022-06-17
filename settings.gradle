@@ -4,6 +4,23 @@ pluginManagement {
         google()
         mavenCentral()
         maven {url 'https://maven.google.com'}
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            credentials {
+                username '62987a7ab0b331d63882559c'
+                password 'hk=xWEh)dZP8'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2236541-release-LLl0CH/'
+        }
+        maven {
+            credentials {
+                username '62987a7ab0b331d63882559c'
+                password 'hk=xWEh)dZP8'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2236541-snapshot-eTdUxo/'
+        }
     }
 }
 dependencyResolutionManagement {
@@ -11,6 +28,23 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            credentials {
+                username '62987a7ab0b331d63882559c'
+                password 'hk=xWEh)dZP8'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2236541-release-LLl0CH/'
+        }
+        maven {
+            credentials {
+                username '62987a7ab0b331d63882559c'
+                password 'hk=xWEh)dZP8'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2236541-snapshot-eTdUxo/'
+        }
     }
 }
 rootProject.name = "ToolsDesign"

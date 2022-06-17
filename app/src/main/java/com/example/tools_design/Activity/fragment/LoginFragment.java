@@ -21,7 +21,7 @@ import com.example.tools_design.Activity.activity.ContainerActivity;
 import com.example.tools_design.Model.Model;
 import com.example.tools_design.Model.bean.UserInfo;
 import com.example.tools_design.R;
-import com.example.tools_design.Utils.Logs;
+import com.raysun.utils.LogUtils.Logs;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 

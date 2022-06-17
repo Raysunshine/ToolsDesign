@@ -46,4 +46,7 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.3.5'
     //Notification
     implementation 'androidx.core:core:1.6.0'
+
+    //RaysunUtils
+    implementation 'com.raysun.utils:RaysunUtils:1.0.0'
 }
